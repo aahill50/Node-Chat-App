@@ -2,11 +2,25 @@ $(function () {
   var socket = ChatApp.socket = io();
   ChatApp.chat = new ChatApp.Chat(socket);
   ChatApp.nickname;
+  ChatApp.room;
+
+  socket.on('joinLobby', function () {
+    ChatApp.room = 'lobby'
+    $('#chat-container').addClass('inactive');
+    $('#lobby-container').removeClass('inactive');
+  })
+
+  socket.on('acceptToRoom', function (data) {
+    ChatApp.room = data.room
+  })
 
   socket.on('allNames', function (names) {
     var $userList = $('#user-list');
+    $userList.empty();
     names.allNames.forEach( function (name) {
-      $userList.prepend(name);
+      $el = $('<div>')
+      $el.text(name)
+      $userList.prepend($el);
     })
   });
 
@@ -18,9 +32,17 @@ $(function () {
 
   $(window).on("submit", function (event) {
     event.preventDefault();
-    var msg = getMessage();
-    if (msg) {
-      sendMessage(msg);
+    var $form;
+    if (ChatApp.room === 'lobby') {
+       $form = $('form.join-room-form');
+    } else {
+       $form = $('form.new-message-form');
+    }
+    var msg = getMessage($form);
+    console.log($form)
+    console.log(msg)
+    sendMessage(msg, ChatApp.room);
+    if (!isCommand(msg)) {
       addMessageToPage(ChatApp.nickname, msg);
     }
     clearInput();
@@ -36,22 +58,14 @@ $(function () {
 
 })
 
-function getMessage() {
-  var $form = $('form.new-message-form');
-  var $msgEntry = $form.find('.message-entry');
+function getMessage($form) {
+  var $msgEntry = $form.find('input[type=text]');
   var msg = $msgEntry.val();
-
-  if(msg.slice(0,5) === "/nick") {
-    var newNickname = msg.slice(6);
-    ChatApp.socket.emit('nicknameChangeRequest', { request: newNickname });
-    return null;
-  } else {
-    return msg
-  }
+  return msg
 }
 
-function sendMessage(message) {
-  ChatApp.chat.sendMessage(message);
+function sendMessage(message, room) {
+  ChatApp.chat.sendMessage(message, room);
 }
 
 function addMessageToPage(nickname, message) {
@@ -69,4 +83,8 @@ function clearInput() {
   var $msgEntry = $form.find('.message-entry');
   $msgEntry.val("");
   $msgEntry.focus();
+}
+
+function isCommand(message) {
+  return message[0] === "/"
 }

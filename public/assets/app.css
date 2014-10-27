@@ -1,0 +1,81 @@
+html, body, div, main, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+}
+
+body {
+  font-family: sans-serif;
+  height: 100%;
+}
+
+#container {
+  background: #25ABCD;
+  width: 400px;
+  padding: 10px;
+}
+
+#chat-container {
+  display: block;
+  background: gray;
+  border: 1px solid black;
+  position: relative;
+}
+
+#chat-container.inactive {
+/*  display: none;*/
+  color: white;
+}
+
+#lobby-container {
+  display: block;
+  background: white;
+  border: 1px solid black;
+  position: relative;
+  height: 400px;
+}
+
+#message-box {
+  background: white;
+  height: 400px;
+  width: 300px;
+  word-wrap: break-word;
+  overflow: scroll;
+}
+
+.join-room-form {
+  position: absolute;
+  bottom: 0;
+}
+
+.lobby-choice {
+  height: 80px;
+  font-size: 24px;
+  padding-top:20px;
+  text-align: center;
+}
+
+.lobby-choice:nth-child(even) {
+  background: #DDD;
+}
+
+.lobby-entry, .message-entry {
+  width: 300px;
+}
+#user-list {
+  float: right  ;
+  background: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100px;
+  border-left: 1px solid gray;
+  height: 100%;
+  overflow: scroll;
+}
+
+div.chat-msg:nth-child(even) {
+  background: #DDD;
+}

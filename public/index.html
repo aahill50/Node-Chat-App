@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="assets/app.css">
     <script src="./vendor/jquery.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="javascripts/chat.js"></script>
@@ -24,6 +25,22 @@
           </form>
         </section>
       </section>
+
+      <section id="lobby-container">
+        <section id="lobby-choices">
+          <div class="lobby-choice">room_1</div>
+          <div class="lobby-choice">room_2</div>
+          <div class="lobby-choice">room_3</div>
+          <div class="lobby-choice">room_4</div>
+          <form class="join-room-form">
+            <input type="text"
+                   placeholder="Type /join to join a room (/join room_1 for example)"
+                   class="lobby-entry">
+            <button class="submit">Submit</button>
+          </form>
+        </section>
+      </section>
+
     </main>
   </body>
 </html>
