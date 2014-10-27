@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./vendor/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="javascripts/chat.js"></script>
+    <script src="javascripts/chat_ui.js"></script>
+
+  </head>
+  <body>
+    <h1>Welcome to the Chat Node!</h1>
+    <main id="container">
+      <section id="chat-container">
+        <section id="message-box">
+        </section>
+        <section id="user-list">
+        </section>
+        <section class="new-message-form">
+          <form class="new-message-form">
+            <input type="text"
+                   placeholder="Enter a message"
+                   class="message-entry">
+            <button class="submit">Submit</button>
+          </form>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
